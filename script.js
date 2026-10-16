@@ -1,28 +1,29 @@
-// Variables de estado local para que el bot recuerde datos del usuario
+// Memoria de datos de usuario para el flujo conversacional
 let datosUsuario = {
   nombre: "",
   riesgo: "",
   rendimiento: "",
-  montoSimulacion: 0
+  montoSimulacion: 0,
+  instrumentoSimulacion: ""
 };
 
 let arbolDecision = {};
 
-// Elementos del DOM
+// Captura de elementos estructurales del HTML
 const cajaMensajes = document.getElementById("caja-mensajes");
 const contenedorBotones = document.getElementById("contenedor-botones");
 
-// Inicializar y cargar el archivo JSON
+// Inicio del flujo al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
   cargarArbol();
 });
 
-// Función para cargar el árbol de decisión via fetch
+// Carga del árbol JSON mediante fetch
 function cargarArbol() {
   fetch("arbol_decision.json")
     .then((respuesta) => {
       if (!respuesta.ok) {
-        throw new Error("Error en la respuesta de la red");
+        throw new Error("Respuesta no válida del servidor");
       }
       return respuesta.json();
     })
@@ -32,57 +33,55 @@ function cargarArbol() {
     })
     .catch((error) => {
       mostrarMensajeBot(
-        "Abrí el proyecto con Live Server o un servidor local para que pueda leer arbol_decision.json."
+        "⚠️ Abrí el proyecto con Live Server o un servidor local para que pueda leer arbol_decision.json."
       );
       console.error("Error al cargar arbol_decision.json:", error);
     });
 }
 
-// Procesa y renderiza cada nodo del árbol
+// Procesa cada nodo del JSON
 function procesarNodo(idNodo) {
   const nodo = arbolDecision[idNodo];
 
   if (!nodo) {
-    console.error("El nodo no existe:", idNodo);
+    console.error("El nodo solicitado no existe:", idNodo);
     return;
   }
 
-  // Si el nodo actualiza alguna variable de preferencia
+  // Guardar selecciones del usuario en el objeto de datos
   if (nodo.guardarRiesgo) datosUsuario.riesgo = nodo.guardarRiesgo;
   if (nodo.guardarRendimiento) datosUsuario.rendimiento = nodo.guardarRendimiento;
+  if (nodo.guardarInstrumento) datosUsuario.instrumentoSimulacion = nodo.guardarInstrumento;
 
-  // Reemplazar variables dinámicas en el texto del nodo
-  let textoProcesado = reemplazarVariables(nodo.texto);
+  let textoFormateado = reemplazarVariables(nodo.texto);
 
-  mostrarMensajeBot(textoProcesado);
+  mostrarMensajeBot(textoFormateado);
   limpiarContenedorBotones();
 
-  // Caso especial: Input para ingresar el nombre
+  // Gestión de inputs especiales
   if (nodo.requiereInputNombre) {
     renderizarInputNombre(nodo.siguiente);
     return;
   }
 
-  // Caso especial: Input para ingresar monto de simulación
   if (nodo.requiereInputMonto) {
     renderizarInputMonto(nodo.siguiente);
     return;
   }
 
-  // Renderizar las opciones mediante botones
+  // Generación de botones de respuesta
   if (nodo.opciones && nodo.opciones.length > 0) {
     nodo.opciones.forEach((opcion) => {
       const boton = document.createElement("button");
       boton.className = "btn-opcion";
-      boton.textContent = opcion.texto;
+      boton.innerHTML = opcion.texto;
       boton.addEventListener("click", () => {
         mostrarMensajeUsuario(opcion.texto);
-        
-        // Manejar reinicio o fin de conversación si corresponde
+
         if (opcion.siguiente === "inicio") {
           resetearDatosUsuario();
         }
-        
+
         procesarNodo(opcion.siguiente);
       });
       contenedorBotones.appendChild(boton);
@@ -90,16 +89,45 @@ function procesarNodo(idNodo) {
   }
 }
 
-// Reemplaza marcadores de texto por los datos en memoria
-function reemplazarVariables(texto) {
-  return texto
-    .replace("{nombre}", datosUsuario.nombre || "Usuario")
-    .replace("{riesgo}", datosUsuario.riesgo || "no definido")
-    .replace("{rendimiento}", datosUsuario.rendimiento || "no definido")
-    .replace("{monto}", datosUsuario.montoSimulacion.toLocaleString("es-AR"));
+// Cálculo dinámico de retornos según la inversión seleccionada
+function calcularGananciaEstimada() {
+  const monto = datosUsuario.montoSimulacion;
+  const inst = datosUsuario.instrumentoSimulacion;
+
+  switch (inst) {
+    case "Plazo Fijo":
+      return { tasa: "TNA 40%", resultado: (monto * 1.033).toFixed(2), horizonte: "30 días" };
+    case "FCI Money Market":
+      return { tasa: "38% Estimado", resultado: (monto * 1.031).toFixed(2), horizonte: "30 días (rescate inmediato)" };
+    case "Bonos Sov.":
+      return { tasa: "TIR 12% USD", resultado: (monto * 1.12).toFixed(2), horizonte: "12 meses" };
+    case "Cedears":
+      return { tasa: "Proyección +28%", resultado: (monto * 1.28).toFixed(2), horizonte: "12 meses" };
+    case "Acciones Locales":
+      return { tasa: "Estimado +35%", resultado: (monto * 1.35).toFixed(2), horizonte: "12 meses" };
+    case "Criptomonedas":
+      return { tasa: "Volatilidad (+50% / -20%)", resultado: (monto * 1.50).toFixed(2), horizonte: "12 meses" };
+    default:
+      return { tasa: "0%", resultado: monto.toFixed(2), horizonte: "Sin definir" };
+  }
 }
 
-// Muestra mensajes del Bot en la interfaz
+// Reemplazo de marcas de texto con datos cargados
+function reemplazarVariables(texto) {
+  const sim = calcularGananciaEstimada();
+  
+  return texto
+    .replace(/{nombre}/g, datosUsuario.nombre || "Usuario")
+    .replace(/{riesgo}/g, datosUsuario.riesgo || "No definido")
+    .replace(/{rendimiento}/g, datosUsuario.rendimiento || "No definido")
+    .replace(/{monto}/g, datosUsuario.montoSimulacion.toLocaleString("es-AR"))
+    .replace(/{instrumento}/g, datosUsuario.instrumentoSimulacion)
+    .replace(/{tasa}/g, sim.tasa)
+    .replace(/{montoFinal}/g, parseFloat(sim.resultado).toLocaleString("es-AR"))
+    .replace(/{horizonte}/g, sim.horizonte);
+}
+
+// Renderizar mensaje proveniente del bot
 function mostrarMensajeBot(texto) {
   const div = document.createElement("div");
   div.className = "mensaje burbuja-bot";
@@ -108,16 +136,16 @@ function mostrarMensajeBot(texto) {
   hacerScrollAlFinal();
 }
 
-// Muestra mensajes del Usuario en la interfaz
+// Renderizar mensaje del usuario
 function mostrarMensajeUsuario(texto) {
   const div = document.createElement("div");
   div.className = "mensaje burbuja-usuario";
-  div.textContent = texto;
+  div.innerHTML = texto;
   cajaMensajes.appendChild(div);
   hacerScrollAlFinal();
 }
 
-// Formulario para ingreso de nombre con validación
+// Formulario e ingreso validado del Nombre
 function renderizarInputNombre(siguienteNodo) {
   const form = document.createElement("form");
   form.className = "input-form";
@@ -125,13 +153,13 @@ function renderizarInputNombre(siguienteNodo) {
   const input = document.createElement("input");
   input.type = "text";
   input.className = "input-nombre";
-  input.placeholder = "Escribí tu nombre sin números...";
+  input.placeholder = "Escribí tu nombre (ej. Carlos)...";
   input.required = true;
 
   const btnEnviar = document.createElement("button");
   btnEnviar.type = "submit";
   btnEnviar.className = "btn-enviar";
-  btnEnviar.textContent = "Continuar";
+  btnEnviar.textContent = "Continuar ➡️";
 
   const errorSpan = document.createElement("span");
   errorSpan.className = "mensaje-error";
@@ -143,11 +171,10 @@ function renderizarInputNombre(siguienteNodo) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const valor = input.value.trim();
-    // Validación: solo letras y espacios
     const regexSoloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
 
     if (!valor || !regexSoloLetras.test(valor)) {
-      errorSpan.textContent = "Por favor ingresá un nombre válido (solo letras).";
+      errorSpan.textContent = "❌ Ingresá un nombre válido sin números ni caracteres especiales.";
       return;
     }
 
@@ -159,7 +186,7 @@ function renderizarInputNombre(siguienteNodo) {
   contenedorBotones.appendChild(form);
 }
 
-// Formulario para ingreso de monto con validación
+// Formulario e ingreso validado del Monto
 function renderizarInputMonto(siguienteNodo) {
   const form = document.createElement("form");
   form.className = "input-form";
@@ -174,7 +201,7 @@ function renderizarInputMonto(siguienteNodo) {
   const btnEnviar = document.createElement("button");
   btnEnviar.type = "submit";
   btnEnviar.className = "btn-enviar";
-  btnEnviar.textContent = "Simular";
+  btnEnviar.textContent = "Confirmar Monto 💵";
 
   const errorSpan = document.createElement("span");
   errorSpan.className = "mensaje-error";
@@ -187,9 +214,8 @@ function renderizarInputMonto(siguienteNodo) {
     e.preventDefault();
     const valor = parseFloat(input.value);
 
-    // Validación: valor numérico válido mayor a 0
     if (isNaN(valor) || valor <= 0) {
-      errorSpan.textContent = "Por favor ingresá un monto válido mayor a 0.";
+      errorSpan.textContent = "❌ Ingresá un valor numérico superior a 0.";
       return;
     }
 
@@ -201,7 +227,6 @@ function renderizarInputMonto(siguienteNodo) {
   contenedorBotones.appendChild(form);
 }
 
-// Funciones auxiliares
 function limpiarContenedorBotones() {
   contenedorBotones.innerHTML = "";
 }
@@ -215,6 +240,7 @@ function resetearDatosUsuario() {
     nombre: "",
     riesgo: "",
     rendimiento: "",
-    montoSimulacion: 0
+    montoSimulacion: 0,
+    instrumentoSimulacion: ""
   };
 }
