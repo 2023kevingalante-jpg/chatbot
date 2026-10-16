@@ -1,184 +1,252 @@
 {
   "inicio": {
-    "texto": "¡Hola! Bienvenido a <b>SHARES IA</b>, tu asistente virtual de la bolsa e inversiones.<br>Para comenzar, por favor decime tu nombre.",
+    "texto": "👋 ¡Hola! Te doy la bienvenida a <b>SHARES IA</b>, tu asistente inteligente de inversiones.<br><br>Para comenzar a operar, decime tu nombre:",
     "requiereInputNombre": true,
     "siguiente": "bienvenida"
   },
   "bienvenida": {
-    "texto": "Hola <b>{nombre}</b>. Estoy para ayudarte a tomar decisiones financieras informadas.<br>¿Qué te gustaría hacer hoy?",
+    "texto": "¡Hola <b>{nombre}</b>! 📈<br>Estoy listo para ayudarte a optimizar tus finanzas. Seleccioná una opción del menú:",
     "opciones": [
-      { "texto": "📈 1. Comenzar a Invertir (Test de Perfil)", "siguiente": "test_pregunta_1" },
-      { "texto": "📊 2. Ver Opciones de Inversión", "siguiente": "menu_opciones_inversion" },
-      { "texto": "💰 3. Simular una Inversión", "siguiente": "simulacion_ingreso_monto" },
+      { "texto": "🎯 1. Test de Perfil de Inversor", "siguiente": "test_pregunta_1" },
+      { "texto": "📊 2. Ver Mercado y Opciones de Inversión", "siguiente": "menu_opciones_inversion" },
+      { "texto": "🧮 3. Simular una Inversión Personalizada", "siguiente": "simulacion_ingreso_monto" },
       { "texto": "❓ 4. Preguntas Frecuentes (FAQ)", "siguiente": "menu_faq" },
-      { "texto": "👤 5. Mi Cuenta / Ver mi Portafolio", "siguiente": "mi_cuenta" }
+      { "texto": "💼 5. Mi Cuenta / Ver mi Portafolio", "siguiente": "mi_cuenta" }
     ]
   },
   "menu_principal": {
-    "texto": "<b>{nombre}</b>, elegí una opción del menú principal:",
+    "texto": "<b>{nombre}</b>, ¿en qué más te puedo ayudar hoy?",
     "opciones": [
-      { "texto": "📈 1. Comenzar a Invertir (Test de Perfil)", "siguiente": "test_pregunta_1" },
-      { "texto": "📊 2. Ver Opciones de Inversión", "siguiente": "menu_opciones_inversion" },
-      { "texto": "💰 3. Simular una Inversión", "siguiente": "simulacion_ingreso_monto" },
+      { "texto": "🎯 1. Test de Perfil de Inversor", "siguiente": "test_pregunta_1" },
+      { "texto": "📊 2. Ver Mercado y Opciones de Inversión", "siguiente": "menu_opciones_inversion" },
+      { "texto": "🧮 3. Simular una Inversión Personalizada", "siguiente": "simulacion_ingreso_monto" },
       { "texto": "❓ 4. Preguntas Frecuentes (FAQ)", "siguiente": "menu_faq" },
-      { "texto": "👤 5. Mi Cuenta / Ver mi Portafolio", "siguiente": "mi_cuenta" },
-      { "texto": "❌ Terminar conversación", "siguiente": "fin_conversacion" }
+      { "texto": "💼 5. Mi Cuenta / Ver mi Portafolio", "siguiente": "mi_cuenta" },
+      { "texto": "❌ 6. Terminar conversación", "siguiente": "fin_conversacion" }
     ]
   },
   "test_pregunta_1": {
-    "texto": "<b>Pregunta 1 de 2:</b> ¿Cuál es tu tolerancia al riesgo?",
+    "texto": "🎯 <b>Pregunta 1/2:</b> ¿Cuál es tu tolerancia a las variaciones de mercado?",
     "opciones": [
-      { "texto": "🛡️ Baja: Priorizo la seguridad de mi capital", "siguiente": "test_pregunta_2_bajo" },
-      { "texto": "⚖️ Moderada: Equilibrio entre ganancias y seguridad", "siguiente": "test_pregunta_2_mod" },
-      { "texto": "🚀 Alta: Busco maximizar ganancias aceptando volatilidad", "siguiente": "test_pregunta_2_alto" }
+      { "texto": "🛡️ Cero tolerancia: Busco proteger mi capital a toda costa", "siguiente": "test_pregunta_2_bajo" },
+      { "texto": "⚖️ Tolerancia media: Acepto variaciones leves si mejoro mi rendimiento", "siguiente": "test_pregunta_2_mod" },
+      { "texto": "🚀 Alta tolerancia: Asumo caídas temporales por altos retornos", "siguiente": "test_pregunta_2_alto" }
     ]
   },
   "test_pregunta_2_bajo": {
     "guardarRiesgo": "Bajo (Conservador)",
-    "texto": "<b>Pregunta 2 de 2:</b> ¿Cuánto margen de rendimiento esperás lograr?",
+    "texto": "🎯 <b>Pregunta 2/2:</b> ¿Qué meta de rendimiento buscás?",
     "opciones": [
-      { "texto": "💵 Estable (Rentabilidad asegurada similar a la inflación)", "siguiente": "resultado_conservador" }
+      { "texto": "🔒 Retorno fijo asegurado para cubrirme de la inflación", "siguiente": "resultado_conservador" }
     ]
   },
   "test_pregunta_2_mod": {
     "guardarRiesgo": "Moderado",
-    "texto": "<b>Pregunta 2 de 2:</b> ¿Cuánto margen de rendimiento esperás lograr?",
+    "texto": "🎯 <b>Pregunta 2/2:</b> ¿Qué meta de rendimiento buscás?",
     "opciones": [
-      { "texto": "📈 Moderado (Superar ligeramente a la inflación a mediano plazo)", "siguiente": "resultado_moderado" }
+      { "texto": "📈 Crecimiento constante superando la inflación a mediano plazo", "siguiente": "resultado_moderado" }
     ]
   },
   "test_pregunta_2_alto": {
     "guardarRiesgo": "Alto (Agresivo)",
-    "texto": "<b>Pregunta 2 de 2:</b> ¿Cuánto margen de rendimiento esperás lograr?",
+    "texto": "🎯 <b>Pregunta 2/2:</b> ¿Qué meta de rendimiento buscás?",
     "opciones": [
-      { "texto": "🔥 Elevado (Aceptar variaciones fuertes a cambio de alto retorno)", "siguiente": "resultado_agresivo" }
+      { "texto": "🔥 Multiplicar capital con alta volatilidad a largo plazo", "siguiente": "resultado_agresivo" }
     ]
   },
   "resultado_conservador": {
-    "guardarRendimiento": "Estable y asegurado",
-    "texto": "<b>Perfil Conservador</b><br>Priorizás la seguridad de tu dinero. Te sugerimos opciones estables como Plazos Fijos o Fondos Comunes de Inversión de Money Market (rescate inmediato).<br><br><i>Preferencias registradas:</i> Riesgo {riesgo} | Rendimiento buscado: {rendimiento}.",
+    "guardarRendimiento": "Preservación de capital",
+    "texto": "✅ <b>Perfil Conservador determinado</b><br>Tus activos recomendados son Plazos Fijos y Fondos Money Market.<br><br>📌 <i>Tu registro: Riesgo {riesgo} | Meta: {rendimiento}.</i>",
     "opciones": [
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
   "resultado_moderado": {
-    "guardarRendimiento": "Moderado superando inflación",
-    "texto": "<b>Perfil Moderado</b><br>Buscás un equilibrio entre ganancias y seguridad. Te recomendamos Fondos Comunes de renta fija/variable o Bonos.<br><br><i>Preferencias registradas:</i> Riesgo {riesgo} | Rendimiento buscado: {rendimiento}.",
+    "guardarRendimiento": "Superar la inflación con balance",
+    "texto": "✅ <b>Perfil Moderado determinado</b><br>Tus activos recomendados son FCI Mixtos, Bonos Soberanos/Corporativos y Cedears defensivos.<br><br>📌 <i>Tu registro: Riesgo {riesgo} | Meta: {rendimiento}.</i>",
     "opciones": [
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
   "resultado_agresivo": {
-    "guardarRendimiento": "Elevado con volatilidad",
-    "texto": "<b>Perfil Agresivo</b><br>Buscás maximizar ganancias aceptando alta volatilidad. Tus opciones ideales son Acciones, Cedears o Criptomonedas.<br><br><i>Preferencias registradas:</i> Riesgo {riesgo} | Rendimiento buscado: {rendimiento}.",
+    "guardarRendimiento": "Maximización de ganancias",
+    "texto": "✅ <b>Perfil Agresivo determinado</b><br>Tus activos recomendados son Acciones locales, Cedears tecnológicos y Criptomonedas.<br><br>📌 <i>Tu registro: Riesgo {riesgo} | Meta: {rendimiento}.</i>",
     "opciones": [
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
   "menu_opciones_inversion": {
-    "texto": "Seleccioná un producto para conocer más detalles:",
+    "texto": "📊 <b>Catálogo de Inversiones Disponibles:</b><br>Hacé clic en cualquiera para ver sus características:",
     "opciones": [
-      { "texto": "🔒 Plazos Fijos", "siguiente": "info_plazo_fijo" },
-      { "texto": "🧺 Fondos Comunes (FCI)", "siguiente": "info_fci" },
-      { "texto": "🏢 Acciones y Cedears", "siguiente": "info_acciones" },
-      { "texto": "🪙 Cripto", "siguiente": "info_cripto" },
+      { "texto": "🏦 Plazos Fijos (Renta Fija)", "siguiente": "info_plazo_fijo" },
+      { "texto": "💧 FCI Money Market (Liquidez 24/7)", "siguiente": "info_fci" },
+      { "texto": "📜 Bonos Soberanos y Corporativos", "siguiente": "info_bonos" },
+      { "texto": "🌐 Cedears (Gigantes de EE.UU.)", "siguiente": "info_cedears" },
+      { "texto": "📈 Acciones Locales (Bolsa de Comercio)", "siguiente": "info_acciones" },
+      { "texto": "⚡ Criptomonedas y Stablecoins", "siguiente": "info_cripto" },
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
   "info_plazo_fijo": {
-    "texto": "<b>Plazos Fijos:</b> Te permiten congelar tu dinero a un tiempo determinado (ej. 30 días) a cambio de una tasa de interés fija asegurada.",
+    "texto": "🏦 <b>Plazo Fijo:</b> Mantenés tu dinero inmovilizado a 30 días con una Tasa Nominal Anual asegurada.",
     "opciones": [
-      { "texto": "⬅️ Volver a Productos", "siguiente": "menu_opciones_inversion" },
+      { "texto": "⬅️ Volver al Menú de Productos", "siguiente": "menu_opciones_inversion" },
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
   "info_fci": {
-    "texto": "<b>Fondos Comunes (FCI):</b> Tu dinero es administrado por expertos que lo invierten en distintos activos. Ideal para diversificar con montos bajos.",
+    "texto": "💧 <b>FCI Money Market:</b> Fondo administrado por profesionales que te permite generar rendimientos diarios recuperando el dinero de inmediato.",
     "opciones": [
-      { "texto": "⬅️ Volver a Productos", "siguiente": "menu_opciones_inversion" },
+      { "texto": "⬅️ Volver al Menú de Productos", "siguiente": "menu_opciones_inversion" },
+      { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
+    ]
+  },
+  "info_bonos": {
+    "texto": "📜 <b>Bonos:</b> Títulos de deuda pública o corporativa que pagan cupones periódicos de interés en pesos o dólares.",
+    "opciones": [
+      { "texto": "⬅️ Volver al Menú de Productos", "siguiente": "menu_opciones_inversion" },
+      { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
+    ]
+  },
+  "info_cedears": {
+    "texto": "🌐 <b>Cedears:</b> Certificados que te permiten comprar partes de Apple, Google, Tesla o Coca-Cola desde pesos, dolarizando tu capital.",
+    "opciones": [
+      { "texto": "⬅️ Volver al Menú de Productos", "siguiente": "menu_opciones_inversion" },
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
   "info_acciones": {
-    "texto": "<b>Acciones y Cedears:</b> Invertí en partes de empresas locales (Acciones) o en gigantes globales desde tu moneda local (Cedears como Apple o Google).",
+    "texto": "📈 <b>Acciones Locales:</b> Comprás participación directa en las principales empresas argentinas cotizantes en BYMA.",
     "opciones": [
-      { "texto": "⬅️ Volver a Productos", "siguiente": "menu_opciones_inversion" },
+      { "texto": "⬅️ Volver al Menú de Productos", "siguiente": "menu_opciones_inversion" },
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
   "info_cripto": {
-    "texto": "<b>Cripto:</b> Comprá y vendé activos digitales como Bitcoin o Stablecoins (criptomonedas atadas al valor del dólar) las 24 horas.",
+    "texto": "⚡ <b>Criptomonedas:</b> Transaccioná activos digitales como Bitcoin, Ethereum o criptos estables que siguen el valor del Dólar (USDT/USDC).",
     "opciones": [
-      { "texto": "⬅️ Volver a Productos", "siguiente": "menu_opciones_inversion" },
+      { "texto": "⬅️ Volver al Menú de Productos", "siguiente": "menu_opciones_inversion" },
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
   "simulacion_ingreso_monto": {
-    "texto": "Ingresá el monto que te gustaría simular (ejemplo: 100000):",
+    "texto": "🧮 <b>Simulador de Inversiones</b><br>Por favor, ingresá el monto en pesos que te gustaría simular:",
     "requiereInputMonto": true,
-    "siguiente": "simulacion_elegir_riesgo"
+    "siguiente": "simulacion_elegir_instrumento"
   },
-  "simulacion_elegir_riesgo": {
-    "texto": "Monto a simular: <b>${monto}</b>.<br>Elegí el tipo de riesgo para la proyección:",
+  "simulacion_elegir_instrumento": {
+    "texto": "Monto registrado: <b>${monto}</b>.<br>Elegí ahora <b>en qué instrumento querés colocar tu dinero</b>:",
     "opciones": [
-      { "texto": "🛡️ Bajo Riesgo (Plazo Fijo / Money Market)", "siguiente": "simulacion_bajo_riesgo" },
-      { "texto": "🚀 Alto Riesgo (Cedears / Renta Variable)", "siguiente": "simulacion_alto_riesgo" }
+      { "texto": "🏦 Plazo Fijo Tradicional", "siguiente": "simular_pf" },
+      { "texto": "💧 FCI Money Market", "siguiente": "simular_fci" },
+      { "texto": "📜 Bonos Soberanos", "siguiente": "simular_bonos" },
+      { "texto": "🌐 Cedears (Ej. Apple/Google)", "siguiente": "simular_cedears" },
+      { "texto": "📈 Acciones Locales", "siguiente": "simular_acciones" },
+      { "texto": "⚡ Criptomonedas (Ej. Bitcoin)", "siguiente": "simular_cripto" }
     ]
   },
-  "simulacion_bajo_riesgo": {
-    "texto": "Si invertís <b>${monto}</b> en un Plazo Fijo a 30 días con una tasa estimada del 3%, al final del mes recibirás aprox. <b>${monto} + rendimiento seguro del 3%</b>.<br><i>(100% ganancia estimada y asegurada)</i>.",
+  "simular_pf": {
+    "guardarInstrumento": "Plazo Fijo",
+    "texto": "🧮 <b>Resultado de la Simulación</b><br><br>• Inversión: <b>${monto}</b> en <b>{instrumento}</b><br>• Tasa / Proyección: <b>{tasa}</b><br>• Plazo sugerido: <b>{horizonte}</b><br>• Retorno estimado al finalizar: <b>${montoFinal}</b>",
     "opciones": [
-      { "texto": "🔄 Simular otro monto", "siguiente": "simulacion_ingreso_monto" },
+      { "texto": "🔄 Probar en otro instrumento", "siguiente": "simulacion_elegir_instrumento" },
+      { "texto": "💵 Cambiar monto", "siguiente": "simulacion_ingreso_monto" },
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
-  "simulacion_alto_riesgo": {
-    "texto": "Si invertís <b>${monto}</b> en Cedears, basándonos en el rendimiento histórico del último año, tu dinero podría transformarse en un estimado de <b>${monto} + 25% a 35% anual</b>.<br><i>Nota: Rendimientos pasados no garantizan rendimientos futuros.</i>",
+  "simular_fci": {
+    "guardarInstrumento": "FCI Money Market",
+    "texto": "🧮 <b>Resultado de la Simulación</b><br><br>• Inversión: <b>${monto}</b> en <b>{instrumento}</b><br>• Tasa / Proyección: <b>{tasa}</b><br>• Plazo sugerido: <b>{horizonte}</b><br>• Retorno estimado al finalizar: <b>${montoFinal}</b>",
     "opciones": [
-      { "texto": "🔄 Simular otro monto", "siguiente": "simulacion_ingreso_monto" },
+      { "texto": "🔄 Probar en otro instrumento", "siguiente": "simulacion_elegir_instrumento" },
+      { "texto": "💵 Cambiar monto", "siguiente": "simulacion_ingreso_monto" },
+      { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
+    ]
+  },
+  "simular_bonos": {
+    "guardarInstrumento": "Bonos Sov.",
+    "texto": "🧮 <b>Resultado de la Simulación</b><br><br>• Inversión: <b>${monto}</b> en <b>{instrumento}</b><br>• Tasa / Proyección: <b>{tasa}</b><br>• Plazo sugerido: <b>{horizonte}</b><br>• Retorno estimado al finalizar: <b>${montoFinal}</b>",
+    "opciones": [
+      { "texto": "🔄 Probar en otro instrumento", "siguiente": "simulacion_elegir_instrumento" },
+      { "texto": "💵 Cambiar monto", "siguiente": "simulacion_ingreso_monto" },
+      { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
+    ]
+  },
+  "simular_cedears": {
+    "guardarInstrumento": "Cedears",
+    "texto": "🧮 <b>Resultado de la Simulación</b><br><br>• Inversión: <b>${monto}</b> en <b>{instrumento}</b><br>• Tasa / Proyección: <b>{tasa}</b><br>• Plazo sugerido: <b>{horizonte}</b><br>• Retorno estimado al finalizar: <b>${montoFinal}</b><br><br><i>Nota: Rendimientos pasados no garantizan rendimientos futuros.</i>",
+    "opciones": [
+      { "texto": "🔄 Probar en otro instrumento", "siguiente": "simulacion_elegir_instrumento" },
+      { "texto": "💵 Cambiar monto", "siguiente": "simulacion_ingreso_monto" },
+      { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
+    ]
+  },
+  "simular_acciones": {
+    "guardarInstrumento": "Acciones Locales",
+    "texto": "🧮 <b>Resultado de la Simulación</b><br><br>• Inversión: <b>${monto}</b> en <b>{instrumento}</b><br>• Tasa / Proyección: <b>{tasa}</b><br>• Plazo sugerido: <b>{horizonte}</b><br>• Retorno estimado al finalizar: <b>${montoFinal}</b><br><br><i>Nota: Sujeto a las variaciones del mercado bursátil.</i>",
+    "opciones": [
+      { "texto": "🔄 Probar en otro instrumento", "siguiente": "simulacion_elegir_instrumento" },
+      { "texto": "💵 Cambiar monto", "siguiente": "simulacion_ingreso_monto" },
+      { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
+    ]
+  },
+  "simular_cripto": {
+    "guardarInstrumento": "Criptomonedas",
+    "texto": "🧮 <b>Resultado de la Simulación</b><br><br>• Inversión: <b>${monto}</b> en <b>{instrumento}</b><br>• Tasa / Proyección: <b>{tasa}</b><br>• Plazo sugerido: <b>{horizonte}</b><br>• Estimación en escenario alcista: <b>${montoFinal}</b><br><br><i>Nota: Mercado de alto riesgo y alta volatilidad.</i>",
+    "opciones": [
+      { "texto": "🔄 Probar en otro instrumento", "siguiente": "simulacion_elegir_instrumento" },
+      { "texto": "💵 Cambiar monto", "siguiente": "simulacion_ingreso_monto" },
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
   "menu_faq": {
-    "texto": "Preguntas Frecuentes. Seleccioná una consulta:",
+    "texto": "❓ <b>Preguntas Frecuentes:</b>",
     "opciones": [
-      { "texto": "💳 Comisiones", "siguiente": "faq_comisiones" },
+      { "texto": "💳 Comisiones y costos", "siguiente": "faq_comisiones" },
       { "texto": "⏱️ Plazos de retiro (Liquidez)", "siguiente": "faq_retiro" },
-      { "texto": "💵 Montos mínimos de entrada", "siguiente": "faq_montos" },
+      { "texto": "💵 Montos mínimos para comenzar", "siguiente": "faq_montos" },
+      { "texto": "🔒 Seguridad y regulaciones", "siguiente": "faq_seguridad" },
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
   "faq_comisiones": {
-    "texto": "<b>Comisiones:</b> Abrir y mantener tu cuenta de inversión es 100% gratuito. Solo cobramos una comisión baja por cada operación de compra/venta de acciones.",
+    "texto": "💳 <b>Comisiones:</b> Apertura y mantenimiento 100% bonificados. Únicamente se cobra una pequeña comisión por operación en instrumentos bursátiles.",
     "opciones": [
       { "texto": "⬅️ Volver a Preguntas Frecuentes", "siguiente": "menu_faq" },
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
   "faq_retiro": {
-    "texto": "<b>Plazos de retiro (Liquidez):</b> Los Fondos Money Market se retiran al instante (24/7). Otras inversiones pueden demorar 24 hs o 48 hs hábiles en acreditarse en tu cuenta bancaria.",
+    "texto": "⏱️ <b>Plazos de Retiro:</b> Los fondos Money Market son de rescate inmediato (24/7). Las acciones, Cedears y bonos operan en plazos de 24 hs a 48 hs hábiles.",
     "opciones": [
       { "texto": "⬅️ Volver a Preguntas Frecuentes", "siguiente": "menu_faq" },
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
   "faq_montos": {
-    "texto": "<b>Montos mínimos:</b> Podés empezar a invertir en Fondos Comunes desde $1.000 o comprar fracciones de criptomonedas con montos mínimos muy bajos.",
+    "texto": "💵 <b>Montos Mínimos:</b> Podés invertir en Fondos Comunes desde $1.000 ARS o adquirir fracciones de activos desde montos muy bajos.",
+    "opciones": [
+      { "texto": "⬅️ Volver a Preguntas Frecuentes", "siguiente": "menu_faq" },
+      { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
+    ]
+  },
+  "faq_seguridad": {
+    "texto": "🔒 <b>Seguridad:</b> Todas las operaciones están custodiadas por agentes autorizados y regulados por la Comisión Nacional de Valores (CNV).",
     "opciones": [
       { "texto": "⬅️ Volver a Preguntas Frecuentes", "siguiente": "menu_faq" },
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
   "mi_cuenta": {
-    "texto": "<b>Resumen de cuenta de {nombre}:</b><br>• Saldo total invertido: $350.000<br>• Rendimiento este mes: +4.5%<br><br><b>Distribución de tu portafolio:</b><br>• 60% en Fondos de rescate inmediato<br>• 30% en Cedears<br>• 10% en Saldo disponible",
+    "texto": "💼 <b>Resumen del Portafolio de {nombre}:</b><br><br>• <b>Total invertido:</b> $350.000<br>• <b>Rendimiento mensual:</b> +4.5%<br><br>📊 <b>Distribución actual:</b><br>• 60% FCI Liquidez inmediata<br>• 30% Cedears (Tech)<br>• 10% Saldo disponible",
     "opciones": [
       { "texto": "↩️ Volver al Menú Principal", "siguiente": "menu_principal" }
     ]
   },
   "fin_conversacion": {
-    "texto": "Gracias por consultar con <b>SHARES IA</b>. ¡Buenas inversiones!",
+    "texto": "👋 ¡Gracias por usar <b>SHARES IA</b>! Que tengas un excelente día de inversiones.",
     "opciones": [
-      { "texto": "🔄 Volver a empezar", "siguiente": "inicio" }
+      { "texto": "🔄 Volver a iniciar", "siguiente": "inicio" }
     ]
   }
 }
